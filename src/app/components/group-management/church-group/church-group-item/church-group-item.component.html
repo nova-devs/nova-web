@@ -1,0 +1,59 @@
+<mat-card>
+    <mat-card-content>
+        <mat-tab-group mat-stretch-tabs="false">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon fontSet="fas" fontIcon="fa-user"></mat-icon>
+                    {{ 'church-group' | translate }}
+                </ng-template>
+                <div class="container-wrap">
+                    <form [formGroup]="formGroup">
+                        <div fxLayout="row" fxLayoutGap="4px">
+                            <mat-form-field fxFlex [ngClass]="'height-input'">
+                                <mat-label>{{ 'description' | translate }}</mat-label>
+                                <input matInput type="text" maxlength="256" formControlName="description">
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex>
+                                <mat-label>{{ 'category' | translate }}</mat-label>
+                                <mat-select formControlName="category" (choicesEvent)="getCategories()">
+                                    <mat-option [value]="null">{{ 'all' | translate }}</mat-option>
+                                    <mat-option *ngFor="let element of categories"
+                                                [value]="element.value">{{ element.display_name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex>
+                                <mat-label>{{ 'type' | translate }}</mat-label>
+                                <mat-select formControlName="type" (choicesEvent)="getTypes()">
+                                    <mat-option [value]="null">{{ 'all' | translate }}</mat-option>
+                                    <mat-option *ngFor="let element of types"
+                                                [value]="element.value">{{ element.display_name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <mat-action-row fxLayout="row" fxLayoutAlign="end center">
+                            <button mat-raised-button id="save" type="submit" color="accent"
+                                    [disabled]="!formGroup.valid" (click)="saveOrUpdate()">
+                                {{ 'save' | translate }}
+                                <mat-icon>save</mat-icon>
+                            </button>
+                        </mat-action-row>
+                    </form>
+                </div>
+            </mat-tab>
+
+            <mat-tab id="tab_group" *ngIf="this.object.id">
+                <ng-template mat-tab-label>
+                    <mat-icon fontSet="fas" fontIcon="fa-user-friends" style="margin-right: 8px"></mat-icon>
+                    {{ 'members' | translate }}
+                </ng-template>
+                <!--                <app-user-group *ngIf="object.id" [churchGroup]="object"></app-user-group>-->
+                <app-church-group-member [churchGroup]="object"></app-church-group-member>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+</mat-card>

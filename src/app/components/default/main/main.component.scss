@@ -1,0 +1,97 @@
+.user-card {
+    box-shadow: none !important;
+    padding-bottom: 0;
+    color: #444F5C;
+
+    .mat-icon {
+        font-size: 40px;
+        height: 40px;
+        width: 40px;
+        color: #444F5C;
+    }
+
+    .mat-mdc-card-title {
+        font-size: 16px;
+    }
+
+    .mat-mdc-card-subtitle {
+        font-size: 14px;
+        font-weight: 500;
+    }
+}
+
+.logo {
+    padding: 16px 0;
+    margin-left: 12px;
+}
+
+.icon {
+    height: 40px;
+}
+
+.icon-menu {
+    color: #ffffff;
+}
+
+.fa-user {
+    margin-right: 6px;
+}
+
+.username {
+    margin-left: 16px;
+}
+
+.symbol {
+    display: none;
+}
+
+@media screen and (max-width: 1024px) {
+    .symbol {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .logotype {
+        display: none;
+    }
+}
+
+.margin-user {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.home-header {
+    position: relative;
+    z-index: 2;
+
+    .toolbar-divider {
+        width: 1px;
+        height: 2rem;
+        background-color: rgba(255, 255, 255, .20);
+    }
+}
+
+.first-icon {
+    order: 0;
+}
+
+.button-text {
+    order: 1;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.second-icon {
+    order: 2;
+}
+
+
+.link-footer {
+    cursor: pointer;
+
+    &:hover {
+        color: #00B5E2;
+    }
+}

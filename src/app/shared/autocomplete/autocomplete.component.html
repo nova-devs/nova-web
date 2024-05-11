@@ -1,0 +1,5 @@
+<mat-autocomplete [autoActiveFirstOption]="true" [displayWith]="_displayFn">
+    <mat-option *ngFor="let result of paginatedResult.results" [value]="result">
+        {{ displayValue(result) }}
+    </mat-option>
+</mat-autocomplete>

@@ -1,0 +1,326 @@
+@use "@angular/material" as mat;
+@use './custom-theme' as custom;
+@import '@angular/material/prebuilt-themes/purple-green.css';
+@import "@fortawesome/fontawesome-free/css/all.css";
+@import "custom-palette";
+
+@include mat.core;
+
+$custom-font: 'Roboto', Arial, sans-serif;
+
+$custom-typography: mat.define-typography-config(
+    $font-family: $custom-font,
+    $headline-4: mat.define-typography-level(100px, 112px, 300, $letter-spacing: -0.05em),
+    $headline-3: mat.define-typography-level(52px, 56px, 400, $letter-spacing: -0.02em),
+    $headline-2: mat.define-typography-level(41px, 48px, 400, $letter-spacing: -0.005em),
+    $headline-1: mat.define-typography-level(30px, 40px, 400),
+    $body-2: mat.define-typography-level(14px, 24px, 500),
+    $body-1: mat.define-typography-level(14px, 20px, 400),
+    $caption: mat.define-typography-level(12px, 20px, 400),
+    $button: mat.define-typography-level(14px, 14px, 500),
+);
+
+
+@include mat.all-component-typographies($custom-typography);
+@include mat.core;
+
+$custom-primary: mat.define-palette($primary-palette-light, 800);
+$custom-accent: mat.define-palette($secondary-palette-light, 500);
+$custom-warn: mat.define-palette($error-palette-light, 500);
+$custom-theme-light: mat.define-light-theme((
+    color: (
+        primary: $custom-primary,
+        accent: $custom-accent,
+        warn: $custom-warn,
+    ),
+    typography: $custom-typography
+));
+
+
+@include mat.all-component-themes($custom-theme-light);
+@include custom.theme($custom-theme-light);
+
+
+.nova-theme {
+
+    h1, h2, h3, p, .mat-mdc-outlined-button.mat-mdc-button-base {
+        color: #444F5C;
+    }
+
+    .main-header {
+        background: #FFFFFF;
+        border-bottom: 1px solid rgba(0, 0, 0, .12);
+        color: #444F5C;
+        z-index: 2;
+    }
+
+    .main-container {
+        mat-sidenav {
+            background-color: #444F5C;
+            padding: 0 8px;
+        }
+    }
+
+    .mat-row:hover, .mat-row:nth-child(odd):hover {
+        background-color: mat.get-color-from-palette($custom-accent, 500);
+    }
+
+    mat-tab-group {
+        mat-tab-header {
+            mat-icon {
+                color: mat.get-color-from-palette($custom-primary, 800);
+            }
+        }
+
+        mat-ink-bar {
+            background-color: mat.get-color-from-palette($custom-primary, 800) !important;
+        }
+    }
+
+    mat-form-field {
+
+        .mat-form-field-appearance-outline {
+            .mat-form-field-outline-thick {
+                color: mat.get-color-from-palette($custom-accent, 500) !important;
+            }
+        }
+
+        .mat-focused {
+            color: mat.get-color-from-palette($custom-accent, 500) !important;
+
+            .mat-form-field-label {
+                color: mat.get-color-from-palette($custom-accent, 500) !important;
+            }
+
+            .mat-form-field-outline-thick {
+                color: mat.get-color-from-palette($custom-accent, 500) !important;
+            }
+
+            .mat-form-field-underline .mat-form-field-ripple {
+                background: mat.get-color-from-palette($custom-accent, 500) !important;
+            }
+        }
+    }
+
+    /* Logo header */
+
+    .symbol-logo {
+        //width: 175px;
+        //height: 34px;
+        background-image: url("../images/logo-nova.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .symbol-logo-icon {
+        width: 34px;
+        height: 34px;
+        background-image: url("../images/family-logo.ico");
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    /* Login */
+
+    .login {
+        background: url("../images/background.svg") no-repeat bottom center fixed #29323C;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+
+        .mat-card-image {
+            background-color: mat.get-color-from-palette($custom-primary, 800);
+            height: 100px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .company-logo {
+            display: none;
+        }
+
+        .logotype:after {
+            font-size: 14px;
+        }
+
+        .logo-nova-login {
+            display: none;
+        }
+
+    }
+
+    .welcome h2 {
+        border-top: 2px solid mat.get-color-from-palette($custom-accent, 500);
+        border-bottom: 2px solid mat.get-color-from-palette($custom-accent, 500);
+        color: mat.get-color-from-palette($custom-primary, 800);
+    }
+
+    .mat-dialog-header {
+        background-color: #444F5C;
+        color: white;
+    }
+
+    /* Dashboard */
+
+    .header, .header-report, .title-monitoring, .category {
+        background: mat.get-color-from-palette($custom-primary, 800);
+        color: white;
+    }
+
+    .header .nova-logo {
+        display: none !important;
+    }
+
+    /* Help */
+
+    .intro {
+        .fas {
+            color: mat.get-color-from-palette($custom-primary, 800);
+        }
+    }
+
+    .intro-cards {
+        p {
+            color: mat.get-color-from-palette($custom-primary, 800);
+        }
+
+        .fas {
+            background-color: mat.get-color-from-palette($custom-primary, 800);
+        }
+    }
+
+    .num {
+        background-color: mat.get-color-from-palette($custom-primary, 800);
+    }
+
+    .mat-nav-list .mat-list-item {
+        &:hover {
+            color: white;
+            transition: .2s;
+
+            .fas {
+                color: white;
+            }
+        }
+    }
+
+    /* HISTORY */
+
+    .item-history {
+        border-left: 1px solid rgba(0, 0, 0, .12);
+        padding-left: 24px;
+        margin: 0 16px 0 30px;
+        font-size: 14px;
+        position: relative;
+
+
+        &:first-child {
+            .expansion-panel {
+                margin-bottom: -1px;
+                border-radius: 0;
+
+                .panel-header {
+                    border-top-left-radius: 4px !important;
+                    border-top-right-radius: 4px !important;
+                }
+            }
+
+            .icon {
+                top: 0;
+                padding-top: 12px;
+            }
+        }
+
+        .icon {
+            position: absolute;
+            top: 10px;
+            left: -14px;
+            background-color: white;
+            border-radius: 50%;
+            height: 24px;
+            color: mat.get-color-from-palette($custom-primary, 800);
+        }
+
+        .expansion-panel {
+            margin-bottom: -1px;
+            border-radius: 0;
+
+            .panel-header {
+                border: 1px solid mat.get-color-from-palette($custom-primary, 300);
+
+                &.mat-expanded {
+                    border-bottom: 0;
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+
+                .mat-expansion-panel-header-description {
+                    width: 180px;
+                    max-width: 180px;
+                    font-weight: 900;
+                    color: mat.get-color-from-palette($custom-primary);
+                }
+
+            }
+
+            &.mat-expansion-panel:not([class*=mat-elevation-z]) {
+                box-shadow: none;
+            }
+
+            &.mat-expansion-panel .mat-expansion-panel-body {
+                border: 1px solid mat.get-color-from-palette($custom-primary, 300);
+                border-radius: 0;
+            }
+
+            .mat-list-base .mat-list-item {
+                background-color: mat.get-color-from-palette($custom-primary, 200);
+                height: auto;
+                margin-bottom: 2px;
+                padding: 6px 0;
+
+                &:nth-child(odd) {
+                    background-color: mat.get-color-from-palette($custom-primary, 200);
+                }
+            }
+
+            &:last-of-type {
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+            &:first-of-type {
+                border-top-right-radius: 0;
+                border-top-left-radius: 0;
+            }
+        }
+
+        .history-no-records-found {
+            border: 1px solid mat.get-color-from-palette($custom-primary, 200);
+            padding: 16px;
+            background-color: mat.get-color-from-palette($custom-primary, 200);
+            border-radius: 4px 4px 0 0;
+        }
+    }
+
+    /* END HISTORY */
+
+    .input-number {
+        width: 40px;
+        padding: 8px;
+        border: 1px solid rgba(0, 0, 0, .12);
+
+    }
+
+    .sm-icon {
+        width: 24px;
+        height: 24px;
+        padding: 0;
+
+        mat-icon {
+            font-size: 17px;
+            line-height: 24px;
+        }
+    }
+
+}

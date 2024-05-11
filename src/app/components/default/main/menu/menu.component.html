@@ -1,0 +1,23 @@
+<ng-template ngFor let-d [ngForOf]="data">
+
+    <mat-nav-list *ngIf="!d.hidden">
+        <h3 mat-subheader *ngIf="showLabel" class="subheader-menu-color">{{d.label | translate}}</h3>
+        <ng-template ngFor let-di [ngForOf]="d.items">
+            <a mat-list-item *ngIf="!di.hidden"
+               [id]="'menu-' + di.label"
+               [matTooltip]="di.label | translate"
+               matTooltipPosition="right"
+               [matTooltipShowDelay]="500"
+               [routerLink]="[di?.route]"
+               [routerLinkActive]="['active']"
+               [routerLinkActiveOptions]="{exact: false}" >
+                <mat-icon matListItemIcon fontSet="fas" [fontIcon]="di?.icon"
+                          *ngIf="di?.icon"></mat-icon>
+                <span matListItemLine >{{di.label | translate}}</span>
+            </a>
+
+            <mat-divider *ngIf="di.divider"></mat-divider>
+        </ng-template>
+    </mat-nav-list>
+
+</ng-template>

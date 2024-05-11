@@ -1,0 +1,82 @@
+<div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="16px">
+
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="formGroup"
+                  fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="16px"
+                  class="remove-form-subscript-wrapper">
+                <mat-form-field id="name" fxFlex>
+                    <mat-label>{{ 'name' | translate }}</mat-label>
+                    <input matInput type="text" maxlength="64" formControlName="name">
+                    <mat-icon class="text-xl" matPrefix>search</mat-icon>
+                </mat-form-field>
+
+                <div fxLayoutAlign="end center" fxLayoutGap="16px">
+                    <button mat-stroked-button id="search"
+                            (click)="search(true)"
+                            matTooltip="{{'search' | translate}}">
+                        <mat-icon>search</mat-icon>
+                        {{ 'search' | translate }}
+                    </button>
+
+                    <button mat-raised-button id="add" color="accent"
+                            (click)="goToPage(formRoute+'create')"
+                            matTooltip="{{'new' | translate}}">
+                        <mat-icon>add</mat-icon>
+                        {{ 'new' | translate }}
+                    </button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-table">
+        <mat-table #table [dataSource]="dataSource">
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef> {{ '#' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element" [attr.data-header]="'#' | translate"> {{ element.id }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> {{ 'name' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element" [attr.data-header]="'name' | translate"> {{ element.name }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="active">
+                <mat-header-cell *matHeaderCellDef> {{ 'active' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element" [attr.data-header]="'active' | translate">
+                    <mat-slide-toggle (change)="toggle(element, 'is_active')" [(ngModel)]="element.is_active"></mat-slide-toggle>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element" fxLayout="row" fxLayoutAlign="end center">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item id="edit" (click)="goToPage('/account/group/' + element.id)">
+                            <mat-icon>edit</mat-icon>
+                            <span>{{ 'edit' | translate }}</span>
+                        </button>
+                        <button mat-menu-item id="delete" (click)="delete(element.id, element.name)">
+                            <mat-icon>delete</mat-icon>
+                            <span>{{ 'delete' | translate }}</span>
+                        </button>
+                    </mat-menu>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="goToPage('/account/group/' + row.id)"></mat-row>
+        </mat-table>
+
+        <div class="no-records-row" *ngIf="pageLength === 0">
+            {{ 'no-records-found' | translate }}
+        </div>
+
+        <mat-paginator [length]="pageLength"></mat-paginator>
+    </mat-card>
+
+</div>

@@ -1,0 +1,12 @@
+<div fxFlex class="container-loading mat-elevation-z24" *ngIf="show">
+
+    <div fxFlex fxLayoutAlign="space-between center">
+        <span class="msg">{{labelProgress | translate}}</span>
+    </div>
+
+    <div fxFlex fxLayoutAlign="center center" class="percent">{{percentage}}%</div>
+
+    <div class="meter">
+        <mat-progress-bar mode="determinate" value="{{percentage}}" class="upload-progress-bar"></mat-progress-bar>
+    </div>
+</div>

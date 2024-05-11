@@ -1,0 +1,25 @@
+<div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="12px">
+
+    <mat-card fxLayoutGap="12px">
+        <mat-card-content>
+            <form [formGroup]="formGroup" class="remove-form-subscript-wrapper">
+                <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+                    <mat-form-field class="w-full">
+                        <mat-label>{{ 'description' | translate }}</mat-label>
+                        <input matInput type="text" maxlength="256" formControlName="description" required
+                               autoFocus>
+                        <mat-error validator></mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="object.url">
+        <mat-card-content>
+            <h3>{{ "menu" | translate }}</h3>
+            <app-module-menu *ngIf="object.url" [module]="object"></app-module-menu>
+        </mat-card-content>
+    </mat-card>
+
+</div>

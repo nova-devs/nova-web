@@ -1,0 +1,83 @@
+<mat-toolbar class="mat-dialog-header">
+    <span>{{ "menu" | translate }}</span>
+    <button mat-icon-button id="close" [mat-dialog-close]="false" tabindex="-1">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-dialog-content fxLayout="column" fxLayoutGap="16px">
+
+    <form class="flex-auto" [formGroup]="formGroup">
+        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="16px">
+            <mat-form-field class="w-full">
+                <mat-label>{{ "root" | translate }}</mat-label>
+                <input matInput [appAutocomplete]="root" formControlName="root" required>
+                <app-autocomplete #root
+                                  [id]="'url'"
+                                  [display]="['description']"
+                                  [paginatedResult]="roots"
+                                  (changeEvent)="getRoots($event)">
+                </app-autocomplete>
+                <app-autocomplete-control matSuffix [for]="root" [limit]="10"></app-autocomplete-control>
+            </mat-form-field>
+
+            <mat-form-field class="w-full">
+                <mat-label>{{ "menu" | translate }}</mat-label>
+                <input matInput [appAutocomplete]="menu" formControlName="menu" required>
+                <app-autocomplete #menu
+                                  [id]="'url'"
+                                  [display]="['description']"
+                                  [paginatedResult]="menus"
+                                  (changeEvent)="getMenus($event)">
+                </app-autocomplete>
+                <app-autocomplete-control matSuffix [for]="menu" [limit]="10"></app-autocomplete-control>
+            </mat-form-field>
+
+            <div fxLayoutGap="16px">
+                <button mat-raised-button color="accent" id="add_or_edit" (click)="saveOrUpdate()"
+                        [disabled]="!formGroup.valid">
+                    <mat-icon>add</mat-icon>
+                    {{ "add" | translate }}
+                </button>
+            </div>
+
+        </div>
+    </form>
+
+    <mat-card class="mat-table">
+        <mat-table #table [dataSource]="dataSource" cdkDropList (cdkDropListDropped)="reorder($event)">
+
+            <ng-container matColumnDef="description">
+                <mat-header-cell *matHeaderCellDef> {{ 'menu' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element"
+                          [attr.data-header]="'menu' | translate"> {{ element.menu?.description }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element" fxLayout="row" fxLayoutAlign="end center">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="delete(element.id, element.name)">
+                            <mat-icon>delete</mat-icon>
+                            <span>{{ 'delete' | translate }}</span>
+                        </button>
+                    </mat-menu>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row cdkDrag *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <div class="no-records-row" *ngIf="pageLength === 0">
+            {{ 'no-records-found' | translate }}
+        </div>
+
+        <mat-paginator [length]="pageLength"></mat-paginator>
+    </mat-card>
+
+</mat-dialog-content>

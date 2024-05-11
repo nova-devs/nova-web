@@ -1,0 +1,22 @@
+.p-link {
+    text-decoration: none;
+    color: #00B5E2;
+    cursor: pointer;
+    margin-left: 0.25rem;
+}
+
+.header-release {
+    background: #908F8F;
+    .mat-expansion-panel-header[aria-disabled="true"] .mat-expansion-panel-header-title,
+    .mat-expansion-panel-header[aria-disabled="true"] .mat-expansion-panel-header-description {
+        color: white;
+    }
+
+}
+:host ::ng-deep .mat-expansion-panel-content{
+    border-top: 1px solid #D3D3D2;
+    border-left: 3px solid #2C2A29;
+}
+.mat-mdc-dialog-content{
+    height: 25rem;
+}

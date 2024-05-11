@@ -1,0 +1,42 @@
+<mat-toolbar class="mat-dialog-header">
+    <span class="flex-auto">{{"root" | translate}}</span>
+    <button mat-icon-button id="close" [mat-dialog-close]="false" tabindex="-1">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-dialog-content fxLayout="column" fxLayoutGap="16px">
+
+    <form [formGroup]="formGroup" class="remove-form-subscript-wrapper">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+
+            <mat-form-field class="flex-auto">
+                <mat-label>{{'description' | translate}}</mat-label>
+                <input matInput [appAutocomplete]="description" formControlName="menu">
+                <app-autocomplete #description
+                                  [id]="'url'"
+                                  [display]="'description'"
+                                  [paginatedResult]="rootList"
+                                  (changeEvent)="getRoots($event)"
+                                  [createMode]="true">
+                </app-autocomplete>
+                <app-autocomplete-control matSuffix [for]="description" [limit]="10"></app-autocomplete-control>
+            </mat-form-field>
+
+        </div>
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-raised-button color="accent" id="save" type="button" [disabled]="!formGroup.valid"
+            (click)="saveOrUpdate()">
+        {{"save" | translate}}
+        <mat-icon>save</mat-icon>
+    </button>
+    <button mat-raised-button color="accent" id="save_plus" type="button" [disabled]="!formGroup.valid"
+            (click)="saveOrUpdatePlus()">
+        {{ 'save-and-create' | translate }}
+        <mat-icon>add</mat-icon>
+    </button>
+</mat-dialog-actions>

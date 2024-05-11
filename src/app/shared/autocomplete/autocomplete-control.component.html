@@ -1,0 +1,37 @@
+<button mat-icon-button type="button"
+        [matTooltip]="'previous-page' | translate"
+        [matTooltipShowDelay]="1000"
+        [disabled]="!for.paginatedResult.previous"
+        *ngIf="for.matAutocomplete.isOpen"
+        (click)="previousPage($event)">
+    <mat-icon>chevron_left</mat-icon>
+</button>
+<button mat-icon-button type="button"
+        [matTooltip]="'next-page' | translate"
+        [matTooltipShowDelay]="1000"
+        [disabled]="!for.paginatedResult.next"
+        *ngIf="for.matAutocomplete.isOpen"
+        (click)="nextPage($event)">
+    <mat-icon>chevron_right</mat-icon>
+</button>
+<button mat-icon-button type="button"
+        [matTooltip]="'clear' | translate"
+        [matTooltipShowDelay]="1000"
+        *ngIf="canShowClearButton"
+        (click)="clear($event)">
+    <mat-icon>close</mat-icon>
+</button>
+<button mat-icon-button type="button"
+        [matTooltip]="'save' | translate"
+        [matTooltipShowDelay]="1000"
+        *ngIf="canShowCreateButton"
+        (click)="create($event)">
+    <mat-icon>save</mat-icon>
+</button>
+<button id="autocomplete-down" mat-icon-button type="button"
+        [matTooltip]="'open' | translate"
+        [matTooltipShowDelay]="1000"
+        *ngIf="!canShowCreateButton"
+        (click)="openPopup($event)">
+    <mat-icon>keyboard_arrow_down</mat-icon>
+</button>

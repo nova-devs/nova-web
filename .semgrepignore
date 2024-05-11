@@ -1,0 +1,26 @@
+# Common large paths
+node_modules/
+build/
+dist/
+vendor/
+.env/
+.venv/
+venv
+.tox/
+*.min.js
+.npm/
+
+# Common test paths
+*_test.go
+# Semgrep rules folder
+.semgrep
+
+# Semgrep-action log folder
+.semgrep_logs/
+
+src/app/shared/autocomplete/autocomplete.component.ts
+src/environments/environment.prod.ts
+src/environments/environment.ts
+src/app/services/auth.service.ts
+
+#CVE-2019-12760

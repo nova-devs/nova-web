@@ -1,0 +1,75 @@
+<div fxLayout="column" fxLayoutAlign="space-around stretch">
+    <mat-toolbar-row>
+        <form [formGroup]="formGroup">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-form-field>
+                    <mat-label>{{ 'root' | translate }}/{{ 'description' | translate }}</mat-label>
+                    <input matInput type="text" maxlength="255" formControlName="root_or_description">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>{{ 'permission' | translate }}</mat-label>
+                    <mat-select formControlName="granted" (choicesEvent)="getBooleans()">
+                        <mat-option [value]="null"></mat-option>
+                        <mat-option [value]="element.value"
+                                    *ngFor="let element of booleans">{{ element.display_name | translate }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div>
+                    <button mat-mini-fab id="search" (click)="search(true)">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </mat-toolbar-row>
+
+    <mat-card class="mat-elevation-z1 mat-table">
+        <mat-table #table [dataSource]="dataSource">
+            <ng-container matColumnDef="root">
+                <mat-header-cell *matHeaderCellDef>{{ 'root' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element"
+                          [attr.data-header]="'root' | translate"> {{ element.root?.description }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+                <mat-header-cell *matHeaderCellDef> {{ 'description' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element"
+                          [attr.data-header]="'description' | translate"> {{ element.menu?.description }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef>
+                    <button mat-icon-button id="deny_all"
+                            [matTooltip]="'deny-permission-for-all-pages' | translate"
+                            (click)="grantAll(false)">
+                        <mat-icon>thumb_down_alt</mat-icon>
+                    </button>
+                    <button mat-icon-button id="grant_all"
+                            [matTooltip]="'grant-permission-for-all-pages' | translate"
+                            (click)="grantAll(true)">
+                        <mat-icon>thumb_up_alt</mat-icon>
+                    </button>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-slide-toggle (change)="grant(element.id, element.granted)"
+                                      [(ngModel)]="element.granted"></mat-slide-toggle>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <div class="no-records-row" *ngIf="pageLength === 0">
+            {{ 'no-records-found' | translate }}
+        </div>
+
+        <mat-paginator [length]="pageLength"></mat-paginator>
+
+    </mat-card>
+</div>

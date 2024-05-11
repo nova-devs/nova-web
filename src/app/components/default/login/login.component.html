@@ -1,0 +1,57 @@
+<div fxFill fxLayout="column" fxLayoutAlign="center center" class="login">
+
+    <form [formGroup]="formGroup">
+        <mat-card [style.width.em]="30" class="mat-elevation-z2">
+            <div fxLayout="column" class="m-5">
+                <div mat-card-image fxLayout="column" class="logo">
+                    <img src="assets/images/logo-nova-login.svg" height="86px" alt="logo-nova">
+                </div>
+
+                <div fxLayout="column" class="margin-buttons-login">
+                    <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+                        <mat-form-field class="w-full field">
+                            <mat-label>{{ 'username' | translate }}</mat-label>
+                            <input id="username" matInput type="text" maxlength="64" formControlName="username" required autoFocus>
+                            <mat-error validator></mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="w-full field">
+                            <mat-label>{{ 'password' | translate }}</mat-label>
+                            <input id="password" matInput type="password" minlength="4" maxlength="64" formControlName="password" required>
+                            <mat-error validator></mat-error>
+                        </mat-form-field>
+
+<!--                        <mat-form-field class="w-full field">-->
+<!--                            <mat-label>{{ 'module' | translate }}</mat-label>-->
+<!--                            <mat-select formControlName="module" required>-->
+<!--                                <mat-option [value]="element" *ngFor="let element of modules">-->
+<!--                                    <mat-icon matListItemIcon fontSet="fas" [fontIcon]="element['icon']"></mat-icon>-->
+<!--                                    {{ element.description | translate }}-->
+<!--                                </mat-option>-->
+<!--                            </mat-select>-->
+<!--                        </mat-form-field>-->
+                    </div>
+
+
+                    <div fxFlex fxLayout="column" fxLayoutAlign="space-evenly stretch" fxLayoutGap="16px">
+                        <button mat-raised-button color="accent" type="submit" [disabled]="!formGroup.valid" (click)="login()">
+                            {{ message | translate }}
+                        </button>
+                    </div>
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+                    <mat-button-toggle-group [value]="translate.currentLang" (change)="changeLanguage($event)" appearance="standard">
+                        <mat-button-toggle [value]="pt" aria-label="Text align center">
+                            <img src="assets/images/brazil.png" height="24px" alt="brazil">
+                        </mat-button-toggle>
+                        <mat-button-toggle [value]="en" aria-label="Text align left">
+                            <img src="assets/images/usa.png" height="24px" alt="usa">
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+            </div>
+        </mat-card>
+
+    </form>
+</div>

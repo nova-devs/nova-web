@@ -1,0 +1,89 @@
+<mat-card>
+    <mat-card-content>
+        <mat-tab-group mat-stretch-tabs="false">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon fontSet="fas" fontIcon="fa-user"></mat-icon>
+                    {{ 'user' | translate }}
+                </ng-template>
+                <div class="container-wrap">
+                    <form [formGroup]="formGroup">
+                        <div fxLayout="column" fxLayoutGap="4px">
+                            <mat-form-field>
+                                <mat-label>{{ 'name' | translate }}</mat-label>
+                                <input matInput type="text" maxlength="256" formControlName="name" required autoFocus>
+                                <mat-error validator></mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>{{ 'email' | translate }}</mat-label>
+                                <input matInput type="text" maxlength="256" formControlName="email">
+                                <mat-error validator></mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>{{ 'username' | translate }}</mat-label>
+                                <input matInput type="text" maxlength="64" formControlName="username" required>
+                                <mat-error validator></mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>{{ 'matriculation' | translate }}</mat-label>
+                                <input matInput type="text" maxlength="64" formControlName="matriculation">
+                                <mat-error validator></mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>{{ 'phone' | translate }}</mat-label>
+                                <input matInput type="text" maxlength="64" formControlName="phone_number">
+                                <mat-error validator></mat-error>
+                            </mat-form-field>
+
+                            <mat-slide-toggle *ngIf="loggedUserIsSuper"
+                                              formControlName="isSuperuser"> {{ 'superuser' | translate }}
+                            </mat-slide-toggle>
+                        </div>
+
+                        <mat-action-row fxLayout="column" fxLayoutAlign="between center" fxLayoutGap="16px" class="md:flex-row">
+                            <mat-chip-set *ngIf="!object.password">
+                                <mat-chip>{{ 'new-password-for-user' | translate }}</mat-chip>
+                            </mat-chip-set>
+
+                            <div fxFlex>
+                                <button mat-stroked-button id="reset_password" type="button"
+                                        class="button-simple-border"
+                                        *ngIf="!object.is_default" (click)="resetPassword()">
+                                    {{ "reset-password" | translate }}
+                                    <mat-icon>lock</mat-icon>
+                                </button>
+                            </div>
+
+                            <div fxFlex fxLayout="column" fxLayoutAlign="center end" fxLayoutGap="16px">
+                                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+                                    <button mat-raised-button id="save" type="submit" color="accent"
+                                            [disabled]="!formGroup.valid" (click)="saveOrUpdate()">
+                                        {{ 'save' | translate }}
+                                        <mat-icon>save</mat-icon>
+                                    </button>
+<!--                                    <button mat-raised-button id="save_plus" type="button" color="accent"-->
+<!--                                            [disabled]="!formGroup.valid" (click)="saveOrUpdatePlus()">-->
+<!--                                        {{ 'save-and-create' | translate }}-->
+<!--                                        <mat-icon>add</mat-icon>-->
+<!--                                    </button>-->
+                                </div>
+                            </div>
+                        </mat-action-row>
+                    </form>
+                </div>
+            </mat-tab>
+
+            <mat-tab id="tab_group" *ngIf="canShowTabs()">
+                <ng-template mat-tab-label>
+                    <mat-icon fontSet="fas" fontIcon="fa-user-friends" style="margin-right: 8px"></mat-icon>
+                    {{ 'group' | translate }}
+                </ng-template>
+                <app-user-group *ngIf="object.id" [user]="object"></app-user-group>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,34 @@
+<mat-toolbar class="mat-dialog-header">
+    <span fxLayout="row">{{'authentic' | translate}}</span>
+    <button mat-icon-button [mat-dialog-close]="false" tabindex="-1">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-dialog-content [style.padding-bottom]="0">
+    <form [formGroup]="formGroup">
+        <div fxFlex fxLayout="column" fxLayoutAlign="space-evenly stretch" fxLayoutGap="16px">
+            <mat-form-field>
+                <mat-label>{{'username' | translate}}</mat-label>
+                <input matInput type="username" maxlength="104" formControlName="username" required>
+                <mat-error validator></mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{'password' | translate}}</mat-label>
+                <input matInput type="password" maxlength="104" formControlName="password" required>
+                <mat-error validator></mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions fxLayoutAlign="center center">
+    <button mat-stroked-button type="button" (click)="cancel()">
+        {{"back" | translate}}
+    </button>
+    <button mat-stroked-button type="submit" [disabled]="!formGroup.valid" (click)="authentic()">
+        {{"ok" | translate}}
+    </button>
+</mat-dialog-actions>
+

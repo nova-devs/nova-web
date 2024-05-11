@@ -1,0 +1,46 @@
+<div fxLayout="column" fxLayoutAlign="around stretch" fxLayoutGap="16px" [style.margin.em]="1.5">
+
+
+    <form [formGroup]="formGroup" class="remove-form-subscript-wrapper">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+            <mat-form-field fxFlex id="name">
+                <mat-label>{{ 'name' | translate }}</mat-label>
+                <input matInput type="text" maxlength="80" formControlName="name">
+            </mat-form-field>
+            <div>
+                <button mat-stroked-button id="search" (click)="search()">
+                    {{ 'search' | translate }}
+                    <mat-icon>search</mat-icon>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <mat-card class="mat-elevation-z1 mat-table">
+        <mat-table #table [dataSource]="dataSource">
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> {{ 'name' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element" [attr.data-header]="'name' | translate"> {{ element.name }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element" [attr.data-header]="'permission' | translate">
+                    <mat-slide-toggle (change)="grant(element.id, element.granted)"
+                                      [(ngModel)]="element.granted"></mat-slide-toggle>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <div class="no-records-row" *ngIf="pageLength === 0">
+            {{ 'no-records-found' | translate }}
+        </div>
+
+        <mat-paginator [length]="pageLength"></mat-paginator>
+
+    </mat-card>
+</div>

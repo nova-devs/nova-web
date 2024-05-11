@@ -1,0 +1,99 @@
+<div class="main" fxLayout="column" fxLayoutAlign="start stretch">
+    <mat-sidenav-container class="main-container w-screen min-h-full" (window:resize)="onResize($event)">
+
+        <mat-sidenav #sidenav mode="side" [opened]="true" [disableClose]="true" [@sidenavIsExpanded]="isExpanded">
+            <div fxLayout="row" fxLayoutAlign="start center" class="logo">
+                <div class="symbol-logo" *ngIf="isExpanded"></div>
+                <div class="symbol-logo-icon" *ngIf="!isExpanded"></div>
+            </div>
+            <app-menu [isExpanded]="isExpanded" [data]="menu" [showLabel]="isExpanded"></app-menu>
+        </mat-sidenav>
+
+        <mat-sidenav-content fxLayout="column" fxLayoutAlign="start stretch" [@sidenavContentIsExpanded]="isExpanded">
+
+<!--            <mat-toolbar class="container-header">-->
+                <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" class="container-header">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <button mat-icon-button (click)="isExpanded = !isExpanded">
+                            <mat-icon>menu</mat-icon>
+                        </button>
+                        <button matTooltip="{{'back' | translate}}" mat-icon-button (click)="location.back()" *ngIf="title">
+                            <mat-icon>arrow_back</mat-icon>
+                        </button>
+                        <span class="title">{{ title | translate }}</span>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="16px" class="home-header">
+                        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="12px" class="home-toolbar">
+                            <ng-container [ngTemplateOutlet]="toolbar"></ng-container>
+                        </div>
+
+                        <div class="toolbar-divider"></div>
+
+                        <div fxLayout="row" fxLayoutGap="16px">
+                            <button id="main_modules" (click)="openModulesDialog()" mat-raised-button color="accent">
+                                <span>{{ module | translate }}</span>
+                                <mat-icon>expand_more</mat-icon>
+                            </button>
+
+                            <div>
+                                <button mat-button mat-stroked-button [matMenuTriggerFor]="matMenu">
+                                    <mat-icon class="first-icon">person_outline</mat-icon>
+                                    <span class="margin-user button-text xl:block sm:hidden hidden">
+                                        {{ user?.name }}
+                                    </span>
+                                    <mat-icon class="second-icon">expand_more</mat-icon>
+                                </button>
+
+                                <mat-menu #matMenu="matMenu">
+                                    <mat-card class="user-card">
+                                        <mat-card-header>
+                                            <div mat-card-avatar>
+                                                <mat-icon>account_circle</mat-icon>
+                                            </div>
+                                            <mat-card-title>
+                                                <strong>{{ user?.name }}</strong>
+                                            </mat-card-title>
+                                            <mat-card-subtitle>{{ user?.username }}</mat-card-subtitle>
+                                        </mat-card-header>
+                                    </mat-card>
+                                    <mat-divider></mat-divider>
+                                    <button mat-menu-item (click)="openChangePasswordDialog()">
+                                        <mat-icon>lock</mat-icon>
+                                        <span>{{ 'change-password' | translate }}</span>
+                                    </button>
+                                    <mat-divider></mat-divider>
+                                    <button mat-menu-item (click)="logout()">
+                                        <mat-icon>exit_to_app</mat-icon>
+                                        <span>{{ 'sign-out' | translate }}</span>
+                                    </button>
+                                </mat-menu>
+
+                            </div>
+                        </div>
+                    </div>
+                </mat-toolbar>
+<!--            </mat-toolbar>-->
+
+            <div class="container h-full">
+                <router-outlet></router-outlet>
+            </div>
+
+            <mat-toolbar fxLayout="row" fxLayoutAlign="start center" class="container-footer">
+                <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px">
+                    <div><span>{{ copyright | translate }}</span></div>
+                </div>
+
+                <div fxFlex fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="16px">
+                    <div><span class="link-footer" (click)="openDialogReleaseNotes()">{{ version | translate }}</span></div>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <img src="../../../../assets/images/logo-nova.svg" height="26px" alt="">
+                    </div>
+                </div>
+            </mat-toolbar>
+
+        </mat-sidenav-content>
+
+    </mat-sidenav-container>
+
+</div>

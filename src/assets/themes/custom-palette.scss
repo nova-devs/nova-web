@@ -1,0 +1,127 @@
+$primary-color-200: #F5F4F4;
+$primary-color-300: #D3D3D2;
+$primary-color-400: #B2B1B1;
+$primary-color-500: #908F8F;
+$primary-color-600: #6F6D6D;
+$primary-color-700: #4E4C4B;
+$primary-color-800: #2C2A29;
+
+$secondary-color-200: #CCF7FE;
+$secondary-color-300: #88E6F9;
+$secondary-color-400: #44D0EF;
+$secondary-color-500: #073977;
+$secondary-color-600: #0095C1;
+$secondary-color-700: #00769E;
+$secondary-color-800: #005779;
+
+$error-color-200: #F7CFD8;
+$error-color-300: #EA92A1;
+$error-color-400: #DA5767;
+$error-color-500: #C7202B;
+$error-color-600: #BD041A;
+$error-color-700: #AA0011;
+$error-color-800: #80000D;
+
+$background-color-light: #ffffff;
+
+$primary-palette-light: (
+    50: mix($primary-color-200, white, 80%),
+    100: mix($primary-color-200, white, 70%),
+    200: $primary-color-200,
+    300: $primary-color-300,
+    400: $primary-color-400,
+    500: $primary-color-500,
+    600: $primary-color-600,
+    700: $primary-color-700,
+    800: $primary-color-800,
+    900: mix($primary-color-800, black, 80%),
+    A100: mix($primary-color-200, white, 20%),
+    A200: mix($primary-color-200, white, 40%),
+    A400: mix($primary-color-200, white, 60%),
+    A700: mix($primary-color-200, white, 80%),
+    contrast: (
+        50: #000000,
+        100: #000000,
+        200: #000000,
+        300: #000000,
+        400: #000000,
+        500: #000000,
+        600: #ffffff,
+        700: #ffffff,
+        800: #ffffff,
+        900: #ffffff,
+        A100: #000000,
+        A200: #000000,
+        A400: #000000,
+        A700: #000000,
+    ),
+);
+
+$secondary-palette-light: (
+    50: mix($secondary-color-200, white, 80%),
+    100: mix($secondary-color-200, white, 70%),
+    200: $secondary-color-200,
+    300: $secondary-color-300,
+    400: $secondary-color-400,
+    500: $secondary-color-500,
+    600: $secondary-color-600,
+    700: $secondary-color-700,
+    800: $secondary-color-800,
+    900: mix($secondary-color-800, black, 80%),
+    A100: mix($secondary-color-200, white, 20%),
+    A200: mix($secondary-color-200, white, 40%),
+    A400: mix($secondary-color-200, white, 60%),
+    A700: mix($secondary-color-200, white, 80%),
+    contrast: (
+        50: #000000,
+        100: #000000,
+        200: #000000,
+        300: #000000,
+        400: #000000,
+        500: #000000,
+        600: #ffffff,
+        700: #ffffff,
+        800: #ffffff,
+        900: #ffffff,
+        A100: #000000,
+        A200: #000000,
+        A400: #000000,
+        A700: #000000,
+    ),
+);
+
+$error-palette-light: (
+    50: mix($error-color-200, white, 80%),
+    100: mix($error-color-200, white, 70%),
+    200: $error-color-200,
+    300: $error-color-300,
+    400: $error-color-400,
+    500: $error-color-500,
+    600: $error-color-600,
+    700: $error-color-700,
+    800: $error-color-800,
+    900: mix($error-color-800, black, 80%),
+    A100: mix($error-color-200, white, 20%),
+    A200: mix($error-color-200, white, 40%),
+    A400: mix($error-color-200, white, 60%),
+    A700: mix($error-color-200, white, 80%),
+    contrast: (
+        50: #000000,
+        100: #000000,
+        200: #000000,
+        300: #000000,
+        400: #ffffff,
+        500: #ffffff,
+        600: #ffffff,
+        700: #ffffff,
+        800: #ffffff,
+        900: #ffffff,
+        A100: #000000,
+        A200: #000000,
+        A400: #000000,
+        A700: #000000,
+    ),
+);
+
+
+

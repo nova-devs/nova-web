@@ -1,0 +1,10 @@
+.mat-stroked-button,
+.mat-raised-button {
+    width: 90px;
+}
+
+::ng-deep {
+    .mat-dialog-container .mat-dialog-actions.action-dialog {
+        padding: 8px 32px 16px 32px !important;
+    }
+}

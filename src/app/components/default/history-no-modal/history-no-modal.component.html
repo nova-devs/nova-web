@@ -1,0 +1,73 @@
+<div fxLayout="column" class="pd-top-24">
+
+    <mat-accordion fxLayout="column">
+
+        <div *ngFor="let element of historyList" fxLayout="column" class="item-history">
+            <div class="icon">
+                <mat-icon>history</mat-icon>
+            </div>
+
+            <mat-expansion-panel class="expansion-panel" *ngIf="element['changes'].length > 0">
+
+                <mat-expansion-panel-header class="panel-header">
+                    <mat-panel-title>
+                        {{ element['history_user']?.name ?? "undefined" | translate }}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{ element['history_date'] | localDate }}
+                    </mat-panel-description>
+                    <mat-panel-description>
+                        <div *ngIf="element['history_type'] === '+'">
+                            <span class="badge badge-success">{{ 'added' | translate }}</span>
+                        </div>
+                        <div *ngIf="element['history_type'] === '~'">
+                            <span class="badge badge-info">{{ 'edited' | translate }}</span>
+                        </div>
+                        <div *ngIf="element['history_type'] === '-'">
+                            <span class="badge badge-danger">{{ 'removed' | translate }}</span>
+                        </div>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <mat-list>
+                    <mat-list-item *ngFor="let change of element['changes']" class="grid">
+                        <div fxLayout="row" *ngIf="element['history_type'] === '+'">
+                            <strong class="col-4">{{ normalize(change['field'])| translate }}{{ ': ' }}</strong>
+                            <span class="col-8">{{ getValue(change['new']) | emptyValue }}</span>
+                        </div>
+                        <div fxLayout="row" fxLayoutGap="16px" *ngIf="element['history_type'] === '~'">
+                            <span>{{ normalize(change['field'])| translate }}{{ ': ' }}</span>
+                            <strong>{{ getValue(change['old']) | emptyValue }}</strong>
+                            <span>{{ 'modified' | translate }} {{ 'to' | translate }}:</span>
+                            <strong>{{ getValue(change['new']) | emptyValue }}</strong>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+
+        </div>
+
+        <div *ngIf="paginator.length === 0" fxLayout="column" class="item-history">
+            <div class="icon">
+                <mat-icon>history</mat-icon>
+            </div>
+
+            <div class="history-no-records-found">
+                {{ 'no-records-found' | translate }}
+            </div>
+        </div>
+
+    </mat-accordion>
+
+    <div class="paginator">
+        <mat-paginator #paginator
+                       [showFirstLastButtons]="true"
+                       [length]="paginator.length"
+                       [pageIndex]="paginator.pageIndex"
+                       [pageSize]="paginator.pageSize"
+                       [pageSizeOptions]="paginator.pageSizeOptions"
+                       (page)="search()">
+        </mat-paginator>
+    </div>
+
+</div>

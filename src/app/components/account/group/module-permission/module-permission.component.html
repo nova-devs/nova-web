@@ -1,0 +1,59 @@
+<div fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="16px">
+    <mat-card fxFlex="50" fxLayout="column" [style.margin.em]="2">
+        <mat-card-header>
+            <mat-card-title>{{ 'module' | translate }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="flex-initial">
+            <mat-list>
+                <mat-list-item mat-list-item *ngFor="let fo of dataSource.data" (click)="getModuleMenus(fo)" [class.selected]="fo === object">
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <span class="txt-color">{{ fo.description | translate }}</span>
+
+                        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="16PX">
+                            <mat-checkbox [checked]="fo.granted"
+                                          (click)="grantModule(fo.id, !fo.granted)">
+                            </mat-checkbox>
+                            <mat-icon class="material-icons">chevron_right</mat-icon>
+                        </div>
+                    </div>
+                </mat-list-item>
+
+                <mat-list-item class="txt-color" *ngIf="dataSource.data.length === 0">
+                    {{ 'no-records-found' | translate }}
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+
+    </mat-card>
+
+    <mat-card fxFlex="50" fxLayout="column" [style.margin.em]="2">
+        <mat-card-header fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-card-title>
+                <span class="flex-initial">{{ 'menu' | translate }}</span>
+            </mat-card-title>
+            <mat-checkbox *ngIf="moduleMenus.length > 0"
+                          [checked]="grantAll"
+                          [matTooltip]="'grant-permission-for-all' | translate"
+                          (click)="grantAllModuleMenu(!grantAll)">
+            </mat-checkbox>
+        </mat-card-header>
+
+        <mat-card-content>
+            <mat-list>
+                <mat-list-item mat-list-item *ngFor="let mm of moduleMenus">
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <span class="txt-color">{{ mm.menu?.description | translate }}</span>
+                        <mat-checkbox [checked]="mm.granted"
+                                      [matTooltip]="'grant-permission' | translate"
+                                      (click)="grantModuleMenu(mm.id, !mm.granted)">
+                        </mat-checkbox>
+                    </div>
+                </mat-list-item>
+
+                <mat-list-item class="txt-color" *ngIf="moduleMenus.length === 0">
+                    {{ 'no-records-found' | translate }}
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+    </mat-card>
+</div>

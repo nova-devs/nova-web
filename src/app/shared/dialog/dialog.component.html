@@ -1,0 +1,21 @@
+<mat-toolbar class="mat-dialog-header">
+    <span fxFlex>{{data?.title}}</span>
+    <button mat-icon-button id="close" [mat-dialog-close]="false" tabindex="-1">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-toolbar>
+
+
+<mat-dialog-content fxLayout="column" fxLayoutAlign="center center">
+    <span>{{data?.message}}</span>
+    <strong>{{data?.description}}</strong>
+</mat-dialog-content>
+
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+    <button mat-stroked-button id="cancel" [mat-dialog-close]="false" tabindex="1">
+        {{'cancel' | translate}}
+    </button>
+    <button mat-raised-button color="accent" id="save" [mat-dialog-close]="true" tabindex="2">
+        {{'yes' | translate}}
+    </button>
+</mat-dialog-actions>

@@ -1,0 +1,82 @@
+<div fxLayout="column" fxLayoutAlign="start space-stretch" class="min-h-full">
+    <mat-toolbar fxFlex fxLayoutAlign="" class="mat-dialog-header">
+        <span fxFlex>{{ 'about' | translate }}</span>
+        <button mat-icon-button id="close" [mat-dialog-close]="false" tabindex="-1">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-toolbar>
+
+    <mat-dialog-content>
+
+        <div class="flex justify-content-start align-items-center px-2 py-2 mb-3">
+            <small>{{ 'version-actually' | translate }}: </small>
+            <small class="font-bold pl-2"> {{ data[0].version_project }}
+                ({{ data[0].name }})</small>
+        </div>
+
+        <mat-accordion>
+            <mat-expansion-panel hideToggle disabled class="header-release">
+                <mat-expansion-panel-header class="py-2 px-4">
+                    <mat-panel-title>
+                        {{ 'release' | translate }}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{ 'version-project' | translate }}
+                    </mat-panel-description>
+                    <mat-panel-description>
+                        {{ 'version-api' | translate }}
+                    </mat-panel-description>
+                    <mat-panel-description>
+                        {{ 'version-web' | translate }}
+                    </mat-panel-description>
+                    <mat-panel-description>
+                        {{ 'date-released' | translate }}
+                    </mat-panel-description>
+
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel
+                *ngFor="let item of data | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
+
+                <mat-expansion-panel-header class="py-2 px-4">
+                    <mat-panel-title>
+                        {{ item.name }}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{ item.version_project }}
+                    </mat-panel-description>
+                    <mat-panel-description>
+                        {{ item.version_api }}
+                    </mat-panel-description>
+                    <mat-panel-description>
+                        {{ item.version_web }}
+                    </mat-panel-description>
+                    <mat-panel-description>
+                        {{ item.released_at | date }}
+                    </mat-panel-description>
+
+                </mat-expansion-panel-header>
+
+                <section class="overflow-y-scroll xl:h-15rem md:h-5rem sm:h-5rem lg:h-2rem">
+                    <div>{{ item.description }}</div>
+                </section>
+
+            </mat-expansion-panel>
+
+
+        </mat-accordion>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <mat-paginator class="mt-2"
+                       [length]="data?.length"
+                       [pageSize]="pageSize"
+                       [pageIndex]="currentPage - 1"
+                       (page)="onPageChange($event)"
+                       [pageSizeOptions]="[3, 5, 10]"
+                       aria-label="Select page">
+        </mat-paginator>
+    </mat-dialog-actions>
+
+</div>

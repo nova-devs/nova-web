@@ -1,0 +1,41 @@
+<div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="16px">
+
+    <div fxLayout="column" fxLayoutAlign="end end" [style.margin.em]="0.05">
+        <button mat-stroked-button *ngIf="object.id" (click)="history()">
+            <mat-icon>history</mat-icon>
+            {{ 'history' | translate }}
+        </button>
+    </div>
+
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="formGroup">
+                <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="16px">
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ 'name' | translate }}</mat-label>
+                        <mat-select formControlName="key" (choicesEvent)="getKeys()" required>
+                            <mat-option [value]="null"></mat-option>
+                            <mat-option *ngFor="let element of keys"
+                                        [value]="element.value">{{ element.display_name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <mat-label>{{ 'value' | translate }}</mat-label>
+                        <input matInput type="text" maxlength="256" formControlName="value" required>
+                        <mat-error validator></mat-error>
+                    </mat-form-field>
+                </div>
+
+                <mat-action-row fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="16px">
+                    <button mat-raised-button type="submit" color="accent" [disabled]="!formGroup.valid"
+                            (click)="saveOrUpdate()">
+                        {{ 'save' | translate }}
+                        <mat-icon>save</mat-icon>
+                    </button>
+                </mat-action-row>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+</div>

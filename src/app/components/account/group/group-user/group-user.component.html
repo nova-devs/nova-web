@@ -1,0 +1,61 @@
+<div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="16px" class="m-4">
+    <form [formGroup]="formGroup" fxLayout="row" fxLayoutGap="16px" class="remove-form-subscript-wrapper">
+        <mat-form-field fxFlex id="user" [ngClass]="'height-input'">
+            <mat-label class="ml-6">{{ 'user' | translate }}</mat-label>
+            <input matInput type="text" formControlName="description" maxlength="64">
+            <mat-icon class="text-xl" matPrefix>search</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+            <mat-label>{{ 'associated' | translate }}</mat-label>
+            <mat-select formControlName="associated" (choicesEvent)="getBooleans()">
+                <mat-option [value]="null"></mat-option>
+                <mat-option [value]="element.value" *ngFor="let element of booleans">{{ element.display_name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div>
+            <button mat-mini-fab id="search" (click)="search()">
+                <mat-icon>search</mat-icon>
+            </button>
+        </div>
+    </form>
+
+    <mat-card class="mat-table mat-elevation-z1">
+        <mat-table #table [dataSource]="dataSource">
+            <ng-container matColumnDef="username">
+                <mat-header-cell *matHeaderCellDef> {{ 'username' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element" [attr.data-header]="'username' | translate"> {{ element.username }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> {{ 'name' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element" [attr.data-header]="'name' | translate"> {{ element.name }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef>
+                    <mat-slide-toggle (change)="associate(0, group.id,  dataSource['allAssociated'])"
+                                      [(ngModel)]="dataSource['allAssociated']"></mat-slide-toggle>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-slide-toggle (change)="associate(element.id, group.id, element.associated)"
+                                      [(ngModel)]="element.associated"></mat-slide-toggle>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <div class="no-records-row" *ngIf="pageLength === 0">
+            {{ 'no-records-found' | translate }}
+        </div>
+
+        <mat-paginator [length]="pageLength"></mat-paginator>
+
+    </mat-card>
+</div>

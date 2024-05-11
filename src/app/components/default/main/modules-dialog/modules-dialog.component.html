@@ -1,0 +1,23 @@
+<div class="bg-dialog-modules" fxLayoutGap="16px">
+
+    <div class="head">
+        <button mat-icon-button id="close" color="accent" [mat-dialog-close]="false">
+            <mat-icon class="close"> close</mat-icon>
+        </button>
+    </div>
+
+    <div class="content">
+        <div fxLayoutAlign="center center">
+            <h1>{{"what-do-you-want-to-do" | translate}}</h1>
+        </div>
+
+        <div class="module-list">
+            <a href="#" class="module mat-elevation-z6"
+               *ngFor="let m of modules" (click)="changeModule(m)">
+                <mat-icon color="accent" fontSet="fas" [fontIcon]="m.icon"></mat-icon>
+                <span>{{m.description | translate}}</span>
+            </a>
+        </div>
+    </div>
+
+</div>

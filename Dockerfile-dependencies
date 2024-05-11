@@ -1,0 +1,13 @@
+ARG image=base-image
+
+FROM $image
+
+ENV APP_PATH  /tmp
+
+ENV SERVER=$SERVER
+
+WORKDIR $APP_PATH
+
+COPY package.json $APP_PATH
+
+RUN npm install && npm install -g eslint@8.56.0

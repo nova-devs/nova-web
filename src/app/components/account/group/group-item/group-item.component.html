@@ -1,0 +1,60 @@
+<mat-card>
+    <mat-card-content>
+        <mat-tab-group mat-stretch-tabs="false">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon fontSet="fas" fontIcon="fa-user-friends"></mat-icon>
+                    {{ 'group' | translate }}
+                </ng-template>
+                <div class="m-4">
+                    <form [formGroup]="formGroup" class="remove-form-subscript-wrapper">
+                        <div fxLayout="column">
+                            <mat-form-field class="w-12">
+                                <mat-label>{{ 'name' | translate }}</mat-label>
+                                <input matInput type="text" maxlength="256" formControlName="name" required autoFocus>
+                                <mat-error validator></mat-error>
+                            </mat-form-field>
+
+                            <mat-action-row fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="16px">
+                                <button mat-raised-button color="accent" id="save" type="submit" [disabled]="!formGroup.valid"
+                                        (click)="saveOrUpdate()">
+                                    {{ 'save' | translate }}
+                                    <mat-icon>save</mat-icon>
+                                </button>
+<!--                                <button mat-raised-button color="accent" id="save_plus" type="button" [disabled]="!formGroup.valid"-->
+<!--                                        (click)="saveOrUpdatePlus()">-->
+<!--                                    {{ 'save-and-create' | translate }}-->
+<!--                                    <mat-icon>add</mat-icon>-->
+<!--                                </button>-->
+                            </mat-action-row>
+                        </div>
+                    </form>
+                </div>
+            </mat-tab>
+
+            <mat-tab id="tab_user" [disabled]="!object.url">
+                <ng-template mat-tab-label>
+                    <mat-icon class="m-2">person</mat-icon>
+                    {{ 'user' | translate }}
+                </ng-template>
+                <app-group-user *ngIf="object.id" [group]="object"></app-group-user>
+            </mat-tab>
+
+            <mat-tab id="tab_module" [disabled]="!object.url">
+                <ng-template mat-tab-label>
+                    <mat-icon class="m-2">apps</mat-icon>
+                    {{ 'module' | translate }}
+                </ng-template>
+                <app-module-permission *ngIf="object.id" [group]="object"></app-module-permission>
+            </mat-tab>
+
+            <mat-tab id="tab_permission" [disabled]="!object.url">
+                <ng-template mat-tab-label>
+                    <mat-icon class="m-2">lock_open</mat-icon>
+                    {{ 'permission' | translate }}
+                </ng-template>
+                <app-permission *ngIf="object.id" [group]="object"></app-permission>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+</mat-card>

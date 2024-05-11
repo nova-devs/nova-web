@@ -1,0 +1,80 @@
+<div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="16px" [style.margin.em]="2">
+    <form [formGroup]="formGroup" fxLayout="row" class="remove-form-subscript-wrapper gap-3">
+        <mat-form-field fxFlex="40">
+            <mat-label>{{ 'model' | translate }}</mat-label>
+            <input matInput [appAutocomplete]="contentType" formControlName="content_type">
+            <app-autocomplete #contentType
+                              [id]="'id'"
+                              [display]="['model']"
+                              [paginatedResult]="contentTypes"
+                              (changeEvent)="getContentTypes($event)">
+            </app-autocomplete>
+            <app-autocomplete-control matSuffix [for]="contentType" [limit]="10"></app-autocomplete-control>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+            <mat-label>{{ 'code' | translate }}/{{ 'name' | translate }}</mat-label>
+            <input matInput type="text" maxlength="255" formControlName="codename_or_name">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+            <mat-label>{{ 'permission' | translate }}</mat-label>
+            <mat-select formControlName="granted" (choicesEvent)="getBooleans()">
+                <mat-option [value]="null"></mat-option>
+                <mat-option [value]="element.value" *ngFor="let element of booleans">{{ element.display_name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div>
+            <button mat-mini-fab id="search" (click)="search(true)">
+                <mat-icon>search</mat-icon>
+            </button>
+        </div>
+    </form>
+
+    <mat-card class="mat-elevation-z1 mat-table">
+        <mat-table #table [dataSource]="dataSource">
+            <ng-container matColumnDef="code">
+                <mat-header-cell *matHeaderCellDef> {{ 'code' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element" [attr.data-header]="'code' | translate"> {{ element.codename }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> {{ 'name' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element" [attr.data-header]="'name' | translate"> {{ element.name }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef fxLayout="row" fxLayoutAlign="center center">
+                    <button mat-icon-button id="deny_all"
+                            [matTooltip]="'deny-permission-for-all-pages' | translate"
+                            (click)="grantAll(false)">
+                        <mat-icon>thumb_down_alt</mat-icon>
+                    </button>
+                    <button mat-icon-button id="grant_all"
+                            [matTooltip]="'grant-permission-for-all-pages' | translate"
+                            (click)="grantAll(true)">
+                        <mat-icon>thumb_up_alt</mat-icon>
+                    </button>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element" fxLayout="row" fxLayoutAlign="center center">
+                    <mat-slide-toggle (change)="grant(element.id, element.granted)"
+                                      [(ngModel)]="element.granted"></mat-slide-toggle>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <div class="no-records-row" *ngIf="pageLength === 0">
+            {{ 'no-records-found' | translate }}
+        </div>
+
+        <mat-paginator [length]="pageLength"></mat-paginator>
+
+    </mat-card>
+</div>

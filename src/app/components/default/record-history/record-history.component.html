@@ -1,0 +1,32 @@
+<div fxLayout="column" fxLayoutAlign="start space-stretch" class="min-h-full">
+    <mat-toolbar fxLayout="column" fxLayoutAlign="space-between center" class="mat-dialog-header">
+        <span>{{ 'history' | translate }}</span>
+        <button mat-icon-button [mat-dialog-close]="false" tabindex="-1">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-toolbar>
+
+
+    <mat-dialog-content>
+
+        <mat-tab-group mat-stretch-tabs="false">
+            <mat-tab label="{{'general-data' | translate}}">
+                <app-history-no-modal [service]="service" [pk]="pk"></app-history-no-modal>
+            </mat-tab>
+            <mat-tab *ngFor="let item of data.services" label="{{item.label | translate}}">
+                <app-history-no-modal [service]="item.service" [pk]="item.pk"
+                                      [associateModel]="item.associateModel"></app-history-no-modal>
+            </mat-tab>
+
+            <mat-tab *ngIf="!data.baseUrl" label="{{'notes' | translate}}">
+                <app-history-no-modal [service]="service" [pk]="pk"
+                                      [associateModel]="'core.Note'"></app-history-no-modal>
+            </mat-tab>
+            <mat-tab *ngIf="!data.baseUrl" label="{{'endorsements' | translate}}">
+                <app-history-no-modal [service]="service" [pk]="pk"
+                                      [associateModel]="'core.RecordEndorsement'"></app-history-no-modal>
+            </mat-tab>
+        </mat-tab-group>
+
+    </mat-dialog-content>
+</div>

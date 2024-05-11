@@ -1,0 +1,98 @@
+<div fxLayout="column" fxLayoutGap="16px">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="formGroup"
+                  fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px"
+                  class="remove-form-subscript-wrapper">
+                <mat-form-field id="username" fxFlex [ngClass]="'height-input'">
+                    <mat-label>{{ 'username' | translate }}/{{ 'name' | translate }}</mat-label>
+                    <input matInput type="text" maxlength="64" formControlName="username_or_name">
+                </mat-form-field>
+                <div fxLayout="row" fxLayoutGap="16px">
+                    <button mat-stroked-button id="search"
+                            (click)="search(true)">
+                        {{ 'search' | translate }}
+                        <mat-icon>search</mat-icon>
+                    </button>
+                    <button mat-raised-button color="accent" (click)="goToPage(formRoute+'create')">
+                        <mat-icon>add</mat-icon>
+                        {{ 'new' | translate }}
+                    </button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-table">
+        <mat-table #table [dataSource]="dataSource">
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef> {{ '#' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element" [attr.data-header]="'#' | translate"> {{ element.id }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+                <mat-header-cell *matHeaderCellDef> {{ 'username' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element" [attr.data-header]="'username' | translate"> {{ element.username }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> {{ 'name' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element" [attr.data-header]="'name' | translate"> {{ element.name }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef> {{ 'email' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element"
+                          [attr.data-header]="'email' | translate"> {{ element.email | emptyValue }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="superuser">
+                <mat-header-cell *matHeaderCellDef> {{ 'superuser' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element" [attr.data-header]="'superuser' | translate">
+                    <mat-slide-toggle [disabled]="authService.user.id === element.id" (change)="toggle(element, 'is_superuser')"
+                                      [(ngModel)]="element.is_superuser"></mat-slide-toggle>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="active">
+                <mat-header-cell *matHeaderCellDef> {{ 'active' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let element" [attr.data-header]="'active' | translate">
+                    <mat-slide-toggle [disabled]="authService.user.id === element.id" (change)="toggle(element, 'is_active')"
+                                      [(ngModel)]="element.is_active"></mat-slide-toggle>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element" fxLayout="row" fxLayoutAlign="end center">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item id="edit" *ngIf="!element.is_default"
+                                (click)="goToPage('/account/user/' + element.id)">
+                            {{ 'edit' | translate }}
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-menu-item id="history" (click)="history(element.id)">
+                            <span>{{ 'history' | translate }}</span>
+                            <mat-icon>history</mat-icon>
+                        </button>
+                    </mat-menu>
+
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="goToPage('/account/user/' + row.id)"></mat-row>
+        </mat-table>
+
+        <div class="no-records-row" *ngIf="pageLength === 0">
+            {{ 'no-records-found' | translate }}
+        </div>
+
+        <mat-paginator [length]="pageLength"></mat-paginator>
+    </mat-card>
+
+</div>

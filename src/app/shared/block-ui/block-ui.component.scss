@@ -1,0 +1,23 @@
+.block {
+    position: absolute;
+    background-color: rgba(139, 154, 155, 0.5);
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    text-align: center;
+
+    .block-msg {
+        position: relative;
+        top: 40%;
+        padding: 50px;
+        border-radius: 6px;
+        background-color: #000;
+        color: #fffb0f;
+        font-size: 7vh;
+        margin: 0 40px;
+
+        @media screen and (max-width: 1440px) {
+            font-size: 6vh;
+        }
+    }
+}
